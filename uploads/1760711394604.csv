@@ -1,0 +1,4 @@
+rollNo,name,class,section,subject,marks,date,type
+1001,Arjun,10,A,Math,85,2025-02-10,exam
+1001,Arjun,10,A,English,78,2025-02-12,exam
+1002,Mahesh,10,A,Math,92,2025-02-10,exam
