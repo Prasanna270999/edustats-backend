@@ -1,30 +1,26 @@
-const dotenv = require('dotenv');
-dotenv.config();
-console.log("MONGO_URL =", process.env.MONGO_URL);
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import studentRoutes from "./routes/students.js";
+import app from "./app.js";
+const app = require("./app");
 
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+
+
+dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
-// Routes
-const authRoute = require('./routes/auth');
-app.use('/api/auth', authRoute);
-const studentRoute = require('./routes/student');
-app.use('/api/students', studentRoute);
+// ✅ Use public student route
+app.use("/api/students", studentRoutes);
 
-
-// MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/edustats", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
-.then(() => console.log('MongoDB connected ✅'))
-.catch(err => console.log('MongoDB connection failed ❌', err));
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT} 🚀`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("🎉 EduStats Backend is Live and Running!");
+});

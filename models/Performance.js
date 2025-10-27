@@ -1,11 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const perfSchema = new mongoose.Schema({
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
-  subject: String,
-  marks: Number,
-  date: { type: Date, default: Date.now },
-  type: { type: String, enum: ['exam','assignment','attendance'], default: 'exam' },
+const PerformanceSchema = new mongoose.Schema({
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student", required: true },
+  subject: { type: String, required: true },
+  marks: { type: Number, required: true },
+  totalMarks: { type: Number, default: 100 },
+  examDate: { type: Date, default: Date.now },
+  type: { type: String, default: "unit" } // unit, midterm, final ...
 });
 
-module.exports = mongoose.model('Performance', perfSchema);
+PerformanceSchema.index({ studentId: 1 });
+PerformanceSchema.index({ subject: 1, examDate: -1 });
+
+export default mongoose.model("Performance", PerformanceSchema);

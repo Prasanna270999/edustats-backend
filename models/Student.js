@@ -1,10 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const StudentSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    rollNo: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    marks: { type: Number, required: true }
-}, { timestamps: true });
+const studentSchema = new mongoose.Schema({
+  rollNo: { type: Number, required: true },
+  name: { type: String, required: true },
+  marks: { type: Number, required: true },
+  attendance: { type: Number, required: true }
+});
 
-module.exports = mongoose.model('Student', StudentSchema);
+// "students" must match your collection name in Compass
+const Student = mongoose.model("Student", studentSchema, "students");
+
+export default Student;
