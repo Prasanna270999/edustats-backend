@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import studentRoutes from "./routes/students.js";
 import app from "./app.js";
-const app = require("./app");
+
 
 
 
